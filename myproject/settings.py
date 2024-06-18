@@ -28,7 +28,16 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
-# Application definition
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
+}
+
+SIMPLE_JWT = {
+    'AUTH_HEADER_TYPES': ('JWT',),
+}
+
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -38,6 +47,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'myApp',
+    'rest_framework',
+    'rest_framework_simplejwt',
+    'coupons',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -48,8 +61,12 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",  
+]
 ROOT_URLCONF = 'myproject.urls'
 
 TEMPLATES = [
